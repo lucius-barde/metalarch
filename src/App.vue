@@ -1,26 +1,26 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<template>  
+  <main>
+    <MetalArchForm placeholder="Search for a metal band ID..." />
+    <MetalArchList order="" limit="" />
+    <footer>
+      <p style="text-align:center; color:var(--muted-color)"><small><small>&copy; 2023 Lucius</small></small></p>
+    </footer>
+  </main>
+    
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MetalArchForm from './components/MetalArchForm.vue';
+import MetalArchList from './components/MetalArchList.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MetalArchForm,
+    MetalArchList
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
