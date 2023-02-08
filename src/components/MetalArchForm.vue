@@ -7,7 +7,7 @@
           <h2>
             <strong><a style="text-decoration:none; color:var(--muted-color)" href="">Search tool for metal bands</a></strong>
             <br /><br />
-            <small>Search is done by page ID on the Metal-Archives.com website.</small>
+            <small>Searching by band ID only (example: 125 = Metallica).<br /> The search by band name is currently under development.</small>
           </h2>
           
         </hgroup>
@@ -90,6 +90,7 @@
                 .then(data => {
                     if(data.error){
                         console.error(data);
+                        // TO DO !!!!! handling of errors
                     }else{
                         console.log(data);
                         this.metalSearchedId = this.metalSearch;
