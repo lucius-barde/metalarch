@@ -6,8 +6,6 @@
           <h1><a style="text-decoration:none; color:#000;" href="">Metal Archiver</a></h1>
           <h2>
             <strong><a style="text-decoration:none; color:var(--muted-color)" href="">Search tool for metal bands</a></strong>
-            <br /><br />
-            <small>Searching by band ID only (example: 125 = Metallica).<br /> The search by band name is currently under development.</small>
           </h2>
           
         </hgroup>
@@ -15,7 +13,11 @@
       <br />
       <form id="metalarch-form" @submit.prevent="initMetalSearch">
           
-          <input v-model="metalSearch" type="search" id="metalsearch" name="metalarch" required v-bind:placeholder="placeholder" />
+          <input v-if="metalSearchById" v-model="metalSearch" type="number" id="metalsearch" name="metalsearch" min="1" required placeholder="Enter an ID (i.e. 25, 125, etc.)" />
+          <input v-else v-model="metalSearch" type="search" id="metalsearch" name="metalsearch" required placeholder="Enter a metal band name..." />
+          <input v-model="metalSearchById" type="checkbox" id="metalsearchbyid" name="metalsearchbyid" checked="checked" />
+          <label for="metalsearchbyid">Search by ID (allows searching on metal-archives)</label>
+          <br /><br />
           <button type="submit">Search</button>
       
       </form>
@@ -24,8 +26,8 @@
       <h6>Search on : {{ metalSearchLoading }}...</h6>
     </div>
    
-    <div id="metalsearch-results" v-if="!metalSearchLoading && band && band.params">
-        <h6>Search results for: {{ metalSearchedId }}</h6>
+    <div id="metalsearch-results" v-if="!metalSearchLoading && band && band.name && band.params">
+        <h6>Search results for <span v-if="metalSearchById">ID</span><span v-else>name</span>: "{{ metalSearchedId }}"</h6>
         <article>
           <h3>{{ band.name }}</h3>
           <p>{{ band.params.genre }} band {{ band.params.location2 ? 'originally ' : '' }}from {{ band.params.location ? band.params.location+', ' : '' }}{{ band.params.countryOfOrigin }}.</p>
@@ -49,9 +51,9 @@
          
         </article>
     </div>
-    <div v-else-if="metalSearchedId && !band">
+    <div v-else-if="metalSearchedId && (!band || !band.name)">
       <h6>
-        No band found with the ID: {{ metalSearchedId }}<br />
+        No band found with the following <span v-if="metalSearchById">ID</span><span v-else>name (in local cache)</span>: {{ metalSearchedId }}<br />
       </h6>
     </div>
 
@@ -68,6 +70,7 @@
             return{
                 metalSearch:'',
                 metalSearchedId:'',
+                metalSearchById:false,
                 metalSearchLoading:'',
                 //metalSearchedTerm:'',
                 band:{},
@@ -76,28 +79,58 @@
         methods:{
             initMetalSearch(){
 
-                this.metalSearchedId = '';
-                this.metalSearchLoading = 'metal-archives';
-                this.band = {};
+                
+                if(this.metalSearchById == true){
 
-                fetch('https://api.oppidumweb.net/metalarch/getBand/'+this.metalSearch, {
-                    headers : { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                    }
-                })
-                .then( response => response.json())
-                .then(data => {
-                    if(data.error){
-                        console.error(data);
-                        // TO DO !!!!! handling of errors
-                    }else{
-                        console.log(data);
-                        this.metalSearchedId = this.metalSearch;
-                        this.metalSearchLoading = '';
-                        this.band = data;
-                    }
-                })
+                  this.metalSearchedId = '';
+                  this.metalSearchLoading = 'metal-archives';
+                  this.band = {};
+
+
+                  fetch('https://api.oppidumweb.net/metalarch/getBand/'+this.metalSearch, {
+                      headers : { 
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                      }
+                  })
+                  .then( response => response.json())
+                  .then(data => {
+                      if(data.error){
+                          console.error(data);
+                          // TO DO !!!!! handling of errors
+                      }else{
+                          console.log(data);
+                          this.metalSearchedId = this.metalSearch;
+                          this.metalSearchLoading = '';
+                          this.band = data;
+                      }
+                  })
+                
+                }else{
+                  this.metalSearchedId = '';
+                  this.metalSearchLoading = "metal-archiver local database";
+                  this.band = {};
+
+                  fetch('https://api.oppidumweb.net/metalarch/search/byName/'+this.metalSearch, {
+                      headers : { 
+                      'Content-Type': 'application/json',
+                      'Accept': 'application/json'
+                      }
+                  })
+                  .then( response => response.json())
+                  .then(data => {
+                      if(data.error){
+                          console.error(data);
+                          // TO DO !!!!! handling of errors
+                      }else{
+                          console.log(data);
+                          this.metalSearchedId = this.metalSearch;
+                          this.metalSearchLoading = '';
+                          this.band = data[0].data; //TODO: possiblity to show multiple search results
+                      }
+                  })
+
+                }
 
             }
         }

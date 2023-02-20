@@ -1,6 +1,6 @@
 <template>  
   <main>
-    <MetalArchForm placeholder="Enter a metal band ID (i.e. 10, 25 , 125...)" />
+    <MetalArchForm />
     <MetalArchList order="" limit="" />
     <footer>
       <p style="text-align:center; color:var(--muted-color)"><small><small>&copy; 2023 Lucius</small></small></p>
