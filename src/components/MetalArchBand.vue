@@ -39,6 +39,8 @@
 <script>
 
     //////////// TODO !!! Implement initMetalSearch() reloading on Route Change.
+    //////////// Replace "Single band" menu link with "All bands" (the view should have A-Z table)
+    //////////// Add moar details on the single band page, less on the search tool. Add the fetchedDate at the bottom
 
     import { useRoute } from 'vue-router';
     export default {

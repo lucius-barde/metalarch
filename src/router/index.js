@@ -19,6 +19,12 @@ const routes = [
     // lazy-loaded route for non-home views
     component: () => import('../views/MetalBandView.vue')
   },
+  {
+    path: '/all',
+    name: 'all',
+    // lazy-loaded route for non-home views
+    component: () => import('../views/MetalAllBandsView.vue')
+  },
 ]
 
 const router = createRouter({

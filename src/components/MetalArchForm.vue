@@ -7,7 +7,6 @@
           <h2>
             <strong><a style="text-decoration:none; color:var(--muted-color)" href="">Search tool for metal bands</a></strong>
           </h2>
-          
         </hgroup>
       </header>
       <br />
@@ -15,10 +14,20 @@
           
           <input v-if="metalSearchById" v-model="metalSearch" type="number" id="metalsearch" name="metalsearch" min="1" required placeholder="Enter an ID (i.e. 25, 125, etc.)" />
           <input v-else v-model="metalSearch" type="search" id="metalsearch" name="metalsearch" required placeholder="Enter a metal band name..." />
-          <input v-model="metalSearchById" type="checkbox" id="metalsearchbyid" name="metalsearchbyid" checked="checked" />
-          <label for="metalsearchbyid">Search by ID (allows searching on metal-archives)</label>
-          <br /><br />
-          <button type="submit">Search</button>
+          
+          <div>
+
+            <div style="width: 50%; display: inline-block; text-align:left;">
+              &nbsp;&nbsp;<input v-model="metalSearchById" type="checkbox" id="metalsearchbyid" name="metalsearchbyid" checked="checked" />
+              <label for="metalsearchbyid">Search by ID</label>
+            </div>
+
+            <div style="width: 50%; display: inline-block; text-align:right;">
+              <button type="submit">Search</button>
+            </div>
+
+          </div>
+          
       
       </form>
     </div>
@@ -37,16 +46,17 @@
           </p> 
 
           <img class="logo" v-if="band.params.logo" v-bind:src="'https://api.oppidumweb.net/'+band.params.logo" />
-          <img class="photo" v-if="band.params.photo" v-bind:src="'https://api.oppidumweb.net/'+band.params.photo" />
-          <br /><br />
-          <p v-if="band.params.formedIn">They were formed in <b>{{ band.params.formedIn }}</b><span v-if="band.params.status">, and their status is now <b>{{ band.params.status }}</b>. </span>
-            <span v-else>. </span>
-            <span v-if="band.params.yearsActive">They were active during the following years: <b>{{ band.params.yearsActive }}</b>.</span>
-          </p>
-          <p v-if="band.params.currentLabel || band.params.lastLabel">
-            They <span v-if="band.params.currentLabel">current</span><span v-else>last</span> label <span v-if="band.params.currentLabel">is</span><span v-else>was</span> {{ band.params.currentLabel ? band.params.currentLabel : band.params.lastLabel }}.
-          </p>
-          <p v-if="band.params.lyricalThemes">Their sing about {{ band.params.lyricalThemes }}.</p>
+          
+          <br />  
+          <br />
+
+          <div style="text-align:right;">
+            <router-link :to="`/metalband/${band.params.bandId}`" v-slot="{ navigate }">
+              <button style="text-decoration:none;" @click="navigate" role="link">
+                Read more...
+              </button>
+            </router-link>
+          </div>
 
          
         </article>
@@ -176,7 +186,6 @@
     --switch-checked-background-color: var(--primary);
     }
 
-
     body>main{
     padding:24px;
     }
@@ -190,40 +199,49 @@
     #metalsearch-results img.logo{padding:8px;}
     @media (min-width: 1200px){
 
-    body>main{
-        max-width: 576px;
-    }
+      body>main{
+          max-width: 576px;
+      }
     }
     @media (min-width: 992px){
-    body>main{
-        max-width: 576px;
-    }
+      body>main{
+          max-width: 576px;
+      }
     }
     @media (min-width: 768px){
-    body>main{
-        max-width: 576px;
-    }
+      body>main{
+          max-width: 576px;
+      }
     }
     @media (min-width: 576px){  
-    html{
-        background-color: var(--primary-hover);
-    }
-    body{
-        border:none;
-    }
-    body>main{
-        background-color: var(--primary-inverse);
-        border: 8px solid var(--primary);
-        margin-top:24px;
-        max-width: 576px;
-    }
+      html{
+          background-color: var(--primary-hover);
+      }
+      body{
+          border:none;
+      }
+      body>main{
+          background-color: var(--primary-inverse);
+          border: 8px solid var(--primary);
+          margin-top:24px;
+          max-width: 576px;
+      }
     }
 
     h1,h2,#topiosearch-loading, #topiosearch-results h6{
-    text-align:center;
+      text-align:center;
     }
+
     #topiosearch-form button{
-    width:200px;
-    margin:auto;
+      width:200px;
+      margin:auto;
     }
+
+    article a button:hover, article a button:active{color:#fff;}
+    article a { text-decoration:none; }
+
+    #metalsearch{
+      border-radius: 4px;
+    }
+
 </style>

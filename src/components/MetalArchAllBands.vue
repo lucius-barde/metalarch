@@ -1,35 +1,31 @@
 <template>
-    <section id="MetalArchList">
-        <h3>Latest bands added:</h3>
+    <section id="MetalArchAllBands">
+        <h1>All bands</h1>
         <ul>   
-            <li v-for="band in latestBands" v-bind:key="band.id">
+            <li v-for="band in allBands" v-bind:key="band.id">
                 <router-link :to="`/metalband/${band.id}`">{{ band.data.name }}</router-link> 
-                <small><small> (#{{ band.id }})</small></small>
             </li>
         </ul>
     </section>
-    <hr />
 </template>
 
 <script>
     export default {
-        name: 'MetalArchList',
+        name: 'MetalArchAllBands',
         props:{
-            order: String,
-            limit: Number,
         },
         data(){
             return{
-                latestBands: {}
+                allBands: {}
             }
         },
         mounted:function(){
-            this.initMetalArchList();
+            this.initMetalArchAllBands();
         },
         methods:{
-            initMetalArchList: function(){
+            initMetalArchAllBands: function(){
                 
-                fetch('https://api.oppidumweb.net/metalarch/getLatestBands/10/', {
+                fetch('https://api.oppidumweb.net/metalarch/getAllBands/', {
                     headers : { 
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
@@ -42,7 +38,7 @@
                         // TO DO !!!!! handling of errors
                     }else{
                         console.log(data);
-                        this.latestBands = data;
+                        this.allBands = data;
                     }
                 })
             }
@@ -51,7 +47,7 @@
 </script>
 
 <style scoped>
-#MetalArchList > :first-child{text-align:center;}
-#MetalArchList ul{columns:2;}
-#MetalArchList ul li{list-style:none outside none; text-align:left;}
+li{list-style:none; text-align:left;}
+li a{display:block; border: 1px solid #ccc; padding:8px; text-decoration:none; border-radius: 4px;}
+li a:hover, li a:active { background-color: #eee; }
 </style>
