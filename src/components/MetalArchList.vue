@@ -4,7 +4,7 @@
         <h3>Latest bands added:</h3>
         <ul>   
             <li v-for="band in latestBands" v-bind:key="band.id">
-                {{ band.data.name }} 
+                <router-link :to="`/metalband/${band.id}`">{{ band.data.name }}</router-link> 
                 <small><small>#{{ band.id }}</small></small>
             </li>
         </ul>

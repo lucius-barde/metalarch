@@ -1,26 +1,38 @@
-<template>  
+<template>
   <main>
-    <MetalArchForm />
-    <MetalArchList order="" limit="" />
-    <footer>
-      <p style="text-align:center; color:var(--muted-color)"><small><small>&copy; 2023 Lucius</small></small></p>
-    </footer>
+    <div id="topiosearch-wrapper">
+          
+      <nav>
+        <router-link to="/">Home</router-link>
+        <router-link to="/about">About</router-link>
+        <router-link to="/metalband/125">Single band</router-link>
+      </nav>
+
+      <router-view />
+
+    </div>
   </main>
-    
 </template>
 
-<script>
-import MetalArchForm from './components/MetalArchForm.vue';
-import MetalArchList from './components/MetalArchList.vue'
-
-export default {
-  name: 'App',
-  components: {
-    MetalArchForm,
-    MetalArchList
-  }
-}
-</script>
-
 <style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
 </style>
