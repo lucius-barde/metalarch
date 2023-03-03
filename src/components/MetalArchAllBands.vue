@@ -1,6 +1,9 @@
 <template>
     <section id="MetalArchAllBands">
         <h1>All bands</h1>
+        <div v-if="!loaded">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
         <ul>   
             <li v-for="band in allBands" v-bind:key="band.id">
                 <router-link :to="`/metalband/${band.id}`">{{ band.data.name }}</router-link> 
@@ -16,6 +19,7 @@
         },
         data(){
             return{
+                loaded:false,
                 allBands: {}
             }
         },
@@ -39,6 +43,7 @@
                     }else{
                         console.log(data);
                         this.allBands = data;
+                        this.loaded = true;
                     }
                 })
             }
@@ -50,4 +55,5 @@
 li{list-style:none; text-align:left;}
 li a{display:block; border: 1px solid #ccc; padding:8px; text-decoration:none; border-radius: 4px;}
 li a:hover, li a:active { background-color: #eee; }
+
 </style>

@@ -2,8 +2,12 @@
    
   <div id="metalarchband-wrapper">
 
+    <div v-if="!loaded">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
     <div id="metalsearch-results" v-if="!metalSearchLoading && band && band.name && band.params">
-        
+          
         <h1>{{ band.name }}</h1>
         
           <p>{{ band.name }} is a {{ band.params.genre }} band {{ band.params.location2 ? 'originally ' : '' }}from {{ band.params.location ? band.params.location+', ' : '' }}{{ band.params.countryOfOrigin }}.</p>
@@ -59,6 +63,8 @@
                 metalSearchedId:'',
                 metalSearchById:false,
                 metalSearchLoading:'',
+                loaded:false,
+                error:false,
                 band:{},
                 //and "bandId" added from setup()
             }
@@ -84,12 +90,14 @@
               .then(data => {
                   if(data.error){
                       console.error(data);
+                      this.error = true;
                       // TO DO !!!!! handling of errors
                   }else{
                       console.log(data);
                       this.metalSearchedId = this.metalSearch;
                       this.metalSearchLoading = '';
                       this.band = data;
+                      this.loaded = true;
                   }
               })
 

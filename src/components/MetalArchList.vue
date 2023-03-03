@@ -1,6 +1,9 @@
 <template>
     <section id="MetalArchList">
         <h3>Latest bands added:</h3>
+        <div v-if="!loaded">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
         <ul>   
             <li v-for="band in latestBands" v-bind:key="band.id">
                 <router-link :to="`/metalband/${band.id}`">{{ band.data.name }}</router-link> 
@@ -20,6 +23,8 @@
         },
         data(){
             return{
+                loaded:false,
+                error:false,
                 latestBands: {}
             }
         },
@@ -43,6 +48,7 @@
                     }else{
                         console.log(data);
                         this.latestBands = data;
+                        this.loaded = true;
                     }
                 })
             }
