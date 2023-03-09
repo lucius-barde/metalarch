@@ -34,7 +34,7 @@
         methods:{
             initMetalArchList: function(){
                 
-                fetch('https://api.oppidumweb.net/metalarch/getLatestBands/10/', {
+                fetch('https://api.bardic.space/metalarch/getLatestBands/10/', {
                     headers : { 
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'

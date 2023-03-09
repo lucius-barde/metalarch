@@ -13,7 +13,7 @@
     </div>
   <footer>
     <div>
-      <small><small>&copy; 2023 <a href="https://www.oppidumweb.net">Lucius Barde</a></small></small>
+      <small><small>&copy; 2023 <a href="https://www.bardic.space">Lucius Barde</a></small></small>
     </div>
   </footer>
   </main>

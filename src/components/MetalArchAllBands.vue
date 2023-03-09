@@ -29,7 +29,7 @@
         methods:{
             initMetalArchAllBands: function(){
                 
-                fetch('https://api.oppidumweb.net/metalarch/getAllBands/', {
+                fetch('https://api.bardic.space/metalarch/getAllBands/', {
                     headers : { 
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'

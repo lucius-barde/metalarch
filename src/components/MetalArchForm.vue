@@ -45,7 +45,7 @@
             <span v-if="band.params.location3"> and to {{ band.params.location3 }}.</span>
           </p> 
 
-          <img class="logo" v-if="band.params.logo" v-bind:src="'https://api.oppidumweb.net/'+band.params.logo" />
+          <img class="logo" v-if="band.params.logo" v-bind:src="'https://api.bardic.space/'+band.params.logo" />
           
           <br />  
           <br />
@@ -96,7 +96,7 @@
                   this.band = {};
 
 
-                  fetch('https://api.oppidumweb.net/metalarch/getBand/'+this.metalSearch, {
+                  fetch('https://api.bardic.space/metalarch/getBand/'+this.metalSearch, {
                       headers : { 
                       'Content-Type': 'application/json',
                       'Accept': 'application/json'
@@ -120,7 +120,7 @@
                   this.metalSearchLoading = "metal-archiver local database";
                   this.band = {};
 
-                  fetch('https://api.oppidumweb.net/metalarch/search/byName/'+this.metalSearch, {
+                  fetch('https://api.bardic.space/metalarch/search/byName/'+this.metalSearch, {
                       headers : { 
                       'Content-Type': 'application/json',
                       'Accept': 'application/json'

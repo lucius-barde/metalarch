@@ -16,8 +16,8 @@
             <span v-if="band.params.location3"> and to {{ band.params.location3 }}.</span>
           </p> 
 
-          <img class="logo" v-if="band.params.logo" v-bind:src="'https://api.oppidumweb.net/'+band.params.logo" />
-          <img class="photo" v-if="band.params.photo" v-bind:src="'https://api.oppidumweb.net/'+band.params.photo" />
+          <img class="logo" v-if="band.params.logo" v-bind:src="'https://api.bardic.space/'+band.params.logo" />
+          <img class="photo" v-if="band.params.photo" v-bind:src="'https://api.bardic.space/'+band.params.photo" />
           <br /><br />
           <p v-if="band.params.formedIn">They were formed in <b>{{ band.params.formedIn }}</b><span v-if="band.params.status">, and their status is now <b>{{ band.params.status }}</b>. </span>
             <span v-else>. </span>
@@ -80,7 +80,7 @@
               this.band = {};
 
 
-              fetch('https://api.oppidumweb.net/metalarch/getBand/'+this.bandId, {
+              fetch('https://api.bardic.space/metalarch/getBand/'+this.bandId, {
                   headers : { 
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
